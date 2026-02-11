@@ -74,7 +74,7 @@
       msg: "{{ catalogue_output }}"
 
    - name: loda the data
-     ansible.builtin.shell: mongosh --host mongodb.adamshafi.shop </app/db/master-data.js
+     ansible.builtin.shell: mongosh --host mongodb.adamshafi.shop < /app/db/master-data.js
      when: catalogue_output.stdout < 0
 
 
