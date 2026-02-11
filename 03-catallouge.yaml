@@ -51,6 +51,7 @@
 
    - name: satart the service and enable the service
      ansible.builtin.service:
+      name: catalouge
       state: started
       enabled : yes
 
