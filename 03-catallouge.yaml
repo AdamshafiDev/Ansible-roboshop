@@ -1,5 +1,5 @@
 - name: configure catala services
-  hosts: catalouge
+  hosts: catalogue
   become: yes
   tasks:
    - name: disbale defualt containt
@@ -67,15 +67,15 @@
 
    - name: checck the product loaded or not 
      ansible.builtin.command: mongosh --host mongodb.adamshafi.shop --eval 'db.getMongo().getDBNames().indexOf("catalogue")'
-     register: catalouge_output
+     register: catalogue_output
 
    - name: print catalogue catalouge_output
      ansible.builtin.debug:
-      msg: "{{ catalouge_output }}"
+      msg: "{{ catalogue_output }}"
 
    - name: loda the data
      ansible.builtin.shell: mongosh --host mongodb.adamshafi.shop </app/db/master-data.js
-     when: catalouge_output.stdout < 0
+     when: catalogue_output.stdout < 0
 
 
 
