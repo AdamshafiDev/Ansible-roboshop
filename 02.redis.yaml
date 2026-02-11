@@ -1,0 +1,27 @@
+- name: configure rediis db
+  hosts: redisdb
+  become: yes
+  tasks:
+   - name: disble redis db version
+     ansible.builtin.command: dnf module disable redis -y
+   - name: enable new version
+     ansible.builtin.command: dnf module enable redis:7 -y
+
+   - name: install redis db
+     ansible.builtin.dnf:
+      name: redis
+      state: present
+
+   - name: configuere data replace
+     ansible.builtin.replace:
+      path: /etc/redis/redis.conf
+      regexp: '127.0.0.1'
+      replace: 0.0.0.0
+
+   - name: enable and start service
+     ansible.builtin.service:
+      name: redis
+      state: started
+      enabled: yes
+
+
