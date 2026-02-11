@@ -45,9 +45,9 @@
       src: catalouge.service
       dest: /etc/systemd/system/catalogue.service
 
-   - name: deamon reload
+   - name: systemctl deamon
      ansible.builtin.systemd_service:
-      deamon_reload: true
+     deamon_reload: true
 
    - name: satart the service and enable the service
      ansible.builtin.service:
