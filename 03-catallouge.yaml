@@ -36,46 +36,44 @@
       remote_src: yes
 
 
-- name: install dependeices
-  community.general.npm:
-   path: /app
+   - name: install dependeices
+     community.general.npm:
+      path: /app
 
-- name: copy the catalouge services
-  ansible.builtin.copy:
-   src: catalouge.service
-   dest: /etc/systemd/system/catalogue.service
+   - name: copy the catalouge services
+     ansible.builtin.copy:
+      src: catalouge.service
+      dest: /etc/systemd/system/catalogue.service
 
-- name: deamon reload
-  ansible.builtin.systemd_service:
-  deamon_reload: true
+   - name: deamon reload
+     ansible.builtin.systemd_service:
+      deamon_reload: true
 
-- name: satart the service and enable the service
-  ansible.builtin.service:
-   name: catalogue 
-   state: started
-   enabled : yes
+   - name: satart the service and enable the service
+     ansible.builtin.service:
+     enabled : yes
 
-- name: copy mongodb repo
-  ansible.builtin.copy:
-    src: mongo.repo
-    dest: /etc/yum.repos.d/mongo.repo
+   - name: copy mongodb repo
+     ansible.builtin.copy:
+      src: mongo.repo
+      dest: /etc/yum.repos.d/mongo.repo
 
-- name: install mongodb client
-  ansible.builtin.dnf:
-   name: mongodb-mongosh
-   state: present
+   - name: install mongodb client
+     ansible.builtin.dnf:
+      name: mongodb-mongosh
+      state: present
 
-- name: checck the product loaded or not 
-  ansible.builtin.command: mongosh --host mongodb.adamshafi.shop --eval 'db.getMongo().getDBNames().indexOf("catalogue")'
-  register: catalouge_output
+   - name: checck the product loaded or not 
+     ansible.builtin.command: mongosh --host mongodb.adamshafi.shop --eval 'db.getMongo().getDBNames().indexOf("catalogue")'
+     register: catalouge_output
 
-- name: print catalouge catalouge_output
-  ansible.builtin.debug:
-   msg: "{{ catalouge_output }}"
+   - name: print catalouge catalouge_output
+     ansible.builtin.debug:
+      msg: "{{ catalouge_output }}"
 
-- name: loda the data
-  ansible.builtin.shell: mongosh --host mongodb.adamshafi.shop </app/db/master-data.js
-  when: catalouge_output.stdout < 0
+   - name: loda the data
+     ansible.builtin.shell: mongosh --host mongodb.adamshafi.shop </app/db/master-data.js
+     when: catalouge_output.stdout < 0
 
 
 
