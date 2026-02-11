@@ -40,9 +40,9 @@
      community.general.npm:
       path: /app
 
-   - name: copy the catalouge services
+   - name: copy the catalogue services
      ansible.builtin.copy:
-      src: catalouge.service
+      src: catalogue.service
       dest: /etc/systemd/system/catalogue.service
 
    - name: systemctl deamon
@@ -51,7 +51,7 @@
 
    - name: satart the service and enable the service
      ansible.builtin.service:
-      name: catalouge
+      name: catalogue
       state: started
       enabled : yes
 
@@ -69,7 +69,7 @@
      ansible.builtin.command: mongosh --host mongodb.adamshafi.shop --eval 'db.getMongo().getDBNames().indexOf("catalogue")'
      register: catalouge_output
 
-   - name: print catalouge catalouge_output
+   - name: print catalogue catalouge_output
      ansible.builtin.debug:
       msg: "{{ catalouge_output }}"
 
