@@ -51,6 +51,7 @@
 
    - name: satart the service and enable the service
      ansible.builtin.service:
+      state: started
       enabled : yes
 
    - name: copy mongodb repo
