@@ -4,6 +4,7 @@
   tasks:
    - name: disbale defualt containt
      ansible.builtin.command: dnf module disable nginx -y
+     
    - name: enabled containt
      ansible.builtin.command: dnf module enable nginx:1.24 -y
 
